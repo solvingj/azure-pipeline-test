@@ -2,9 +2,8 @@ variables:
   GOBIN:  "$(GOPATH)/bin" # Go binaries path
   GOPATH: "$(system.defaultWorkingDirectory)/gopath"
   GO111MODULE: "on"
-  modulePath: "$(GOPATH)/src/github.com/$(build.repository.name)"
-  bintrayRepo: solvingj/public-bin
-  
+  MODULEPATH: "$(GOPATH)/src/github.com/$(build.repository.name)"
+  BT_REPO: solvingj/public-bin
 
 trigger:
   branches:
@@ -14,16 +13,16 @@ trigger:
     
 jobs:
   - job: Windows
+    variables: 
+      target_file: envx.exe
     pool:
       vmImage: "vs2017-win2016"
     steps:
-      # - script: go build -o envx.exe
-        # displayName: go_build
-      - script: curl --help
-        displayName: curl_test
-      - script: curl
-        displayName: cd
-        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
+      - script: set
+        displayName: set
+      # - script: 
+        # displayName: cd
+        # condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
 
 # - job: Linux
   # pool:
