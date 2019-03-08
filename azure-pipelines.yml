@@ -9,20 +9,29 @@ jobs:
   pool:
     vmImage: "vs2017-win2016"
   steps:
-    - script: choco install jfrog-cli
-    - script: jfrog --version
+    - script: cd
+      displayName: CD  
+      condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
 
-- job: macOS
-  pool:
-    vmImage: "macOS-10.13"
-  steps:
-    - script: brew install jfrog-cli-go
-    - script: jfrog --version
-
-- job: Linux
-  pool:
-    vmImage: "ubuntu-16.04"
-  steps:
-    - script: curl -fL https://getcli.jfrog.io | sh
-    - script: jfrog --version
+# - job: Linux
+  # pool:
+    # vmImage: "ubuntu-16.04"
+  # steps:
+    # - script: curl -fL https://getcli.jfrog.io | sh
+      # displayName: Install JFrog CLI
+    # - script: ./jfrog --version
     
+
+# - job: macOS
+  # pool:
+    # vmImage: "macOS-10.13"
+  # steps:
+    # - script: brew install jfrog-cli-go
+      # displayName: Install JFrog CLI  
+    # - script: jfrog --version
+
+# - job: B
+  # dependsOn: A
+  # condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+  # steps:
+  # - script: echo this only runs for master
