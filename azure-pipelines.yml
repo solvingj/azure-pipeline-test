@@ -7,8 +7,11 @@ variables:
   
 
 trigger:
+  branches:
+    include: ['*']
   tags:
     include: ['*']
+    
 jobs:
   - job: Windows
     pool:
