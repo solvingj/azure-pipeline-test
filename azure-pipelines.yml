@@ -20,9 +20,9 @@ jobs:
     steps:
       - script: set
         displayName: set
-      # - script: 
-        # displayName: cd
-        # condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
+      - script: cd
+        displayName: cd
+        condition: Version(variables['Build.SourceBranchName']) 
 
 # - job: Linux
   # pool:
