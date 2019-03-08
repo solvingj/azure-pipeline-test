@@ -12,12 +12,12 @@ jobs:
   - job: Windows
     pool:
       vmImage: "vs2017-win2016"
-  steps:
-    - script: echo %Build_SourceBranch%
-      displayName: echo  
-    - script: go --version
-      displayName: go_version
-      condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
+    steps:
+      - script: echo %Build_SourceBranch%
+        displayName: echo  
+      - script: go --version
+        displayName: go_version
+        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
 
 # - job: Linux
   # pool:
