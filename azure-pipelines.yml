@@ -3,6 +3,8 @@ variables:
   GOPATH: "$(system.defaultWorkingDirectory)/gopath"
   GO111MODULE: "on"
   modulePath: "$(GOPATH)/src/github.com/$(build.repository.name)"
+  bintrayRepo: solvingj/public-bin
+  
 
 trigger:
   tags:
@@ -12,10 +14,12 @@ jobs:
     pool:
       vmImage: "vs2017-win2016"
     steps:
-      - script: echo %Build_SourceBranch%
-        displayName: echo  
-      - script: go --version
-        displayName: go_version
+      - script: go build -o envx.exe
+        displayName: go_build
+      - script: curl --help
+        displayName: curl_test
+      - script: curl
+        displayName: cd
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
 
 # - job: Linux
