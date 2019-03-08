@@ -10,8 +10,8 @@ trigger:
     - "*"
 jobs:
   - job: Windows
-  pool:
-    vmImage: "vs2017-win2016"
+    pool:
+      vmImage: "vs2017-win2016"
   steps:
     - script: echo %Build_SourceBranch%
       displayName: echo  
