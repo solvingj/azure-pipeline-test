@@ -17,8 +17,8 @@ jobs:
     pool:
       vmImage: "vs2017-win2016"
     steps:
-      - script: go build -o envx.exe
-        displayName: go_build
+      # - script: go build -o envx.exe
+        # displayName: go_build
       - script: curl --help
         displayName: curl_test
       - script: curl
