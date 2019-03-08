@@ -9,17 +9,20 @@ jobs:
   pool:
     vmImage: "vs2017-win2016"
   steps:
+    - script: choco install jfrog-cli
     - script: go build -o envx.exe
 
 - job: macOS
   pool:
     vmImage: "macOS-10.13"
   steps:
+    - script: brew install jfrog-cli-go.
     - script: go build -o envx
 
 - job: Linux
   pool:
     vmImage: "ubuntu-16.04"
   steps:
+    - script: curl -fL https://getcli.jfrog.io | sh
     - script: go build -o envx
     
