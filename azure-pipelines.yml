@@ -6,8 +6,7 @@ variables:
 
 trigger:
   tags:
-    include:
-    - ['*']
+    include: ['*']
 jobs:
   - job: Windows
     pool:
