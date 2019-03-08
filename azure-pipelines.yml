@@ -20,9 +20,9 @@ jobs:
     steps:
       - script: set
         displayName: set
-      - script: cd
-        displayName: cd
-        condition: Version(variables['Build.SourceBranchName']) 
+      # - script: cd
+        # displayName: cd
+        # condition: Version(variables['Build.SourceBranchName']) 
 
 # - job: Linux
   # pool:
