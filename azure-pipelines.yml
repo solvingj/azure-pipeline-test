@@ -9,9 +9,9 @@ jobs:
   pool:
     vmImage: "vs2017-win2016"
   steps:
-    - script: cd
-      displayName: CD  
-      condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
+    - script: echo %Build_SourceBranch%
+      displayName: echo  
+      # condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
 
 # - job: Linux
   # pool:
