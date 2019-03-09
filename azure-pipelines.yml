@@ -17,39 +17,47 @@ trigger:
     include: ['*']
     
 jobs:
-
-  - job: linux_x64
-    variables: 
-        FILE: $(BIN)
-    pool:
-      vmImage: "ubuntu-16.04"
-      steps:
-        - script: echo $(Build.SourceBranchName)
-          displayName: echo BUILD_SOURCEBRANCHNAME2
-        - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
-          displayName: bintray_publish
-          condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
-      
   - job: macos_x64
-    variables: 
-      FILE: $(BIN)
     pool:
       vmImage: "macOS-10.13"
-      steps:
-        - script: echo $(Build.SourceBranchName)
-          displayName: echo BUILD_SOURCEBRANCHNAME3
-        - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
-          displayName: bintray_publish
-          condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
-
-  - job: windows_x64
-    variables: 
-      FILE: $(BIN).exe
-    pool:
-      vmImage: "vs2017-win2016"
     steps:
-      - script: echo $(Build.SourceBranchName)
-        displayName: echo BUILD_SOURCEBRANCHNAME
-      - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
-        displayName: bintray_publish
-        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
+      - script: go build -o envx
+        displayName: Go Build
+      - script: brew install jfrog-cli-go
+        displayName: Install JFrog CLI  
+
+  # - job: linux_x64
+    # variables: 
+        # FILE: $(BIN)
+    # pool:
+      # vmImage: "ubuntu-16.04"
+      # steps:
+        # - script: echo $(Build.SourceBranchName)
+          # displayName: echo BUILD_SOURCEBRANCHNAME2
+        # - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
+          # displayName: bintray_publish
+          # condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
+      
+  # - job: macos_x64
+    # variables: 
+      # FILE: $(BIN)
+    # pool:
+      # vmImage: "macOS-10.13"
+      # steps:
+        # - script: echo $(Build.SourceBranchName)
+          # displayName: echo BUILD_SOURCEBRANCHNAME3
+        # - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
+          # displayName: bintray_publish
+          # condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
+
+  # - job: windows_x64
+    # variables: 
+      # FILE: $(BIN).exe
+    # pool:
+      # vmImage: "vs2017-win2016"
+    # steps:
+      # - script: echo $(Build.SourceBranchName)
+        # displayName: echo BUILD_SOURCEBRANCHNAME
+      # - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
+        # displayName: bintray_publish
+        # condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
