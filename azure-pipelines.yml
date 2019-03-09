@@ -3,8 +3,13 @@ variables:
   GOPATH: "$(system.defaultWorkingDirectory)/gopath"
   GO111MODULE: "on"
   MODULEPATH: "$(GOPATH)/src/github.com/$(build.repository.name)"
-  BT_REPO: solvingj/public-bin
-
+  BT_API: https://api.bintray.com/content
+  BT_REPO: public-generic
+  PROJECT_NAME: $(BUILD_DEFINITIONNAME)
+  VERSION_TAG: $(BUILD_SOURCEBRANCHNAME)
+  PLATFORM: $(SYSTEM_PHASENAME)
+  PUBLISH_CMD: curl -T $(VERSION_TAG) 
+  
 trigger:
   branches:
     include: ['*']
@@ -13,7 +18,6 @@ trigger:
     
 jobs:
   - job: windows_x64
-    displayName: windows_x64
     variables: 
       target_file: envx.exe
     pool:
@@ -24,8 +28,18 @@ jobs:
       - script: echo %BUILD_SOURCEBRANCHNAME%
         displayName: echo BUILD_SOURCEBRANCHNAME
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
-      - script: echo  %BUILD_SOURCEBRANCHNAME%
-        displayName: echo BUILD_SOURCEBRANCHNAME
+      - script: |
+          echo ${{ '''
+          curl -T $(target_file)
+          -u$(BT_USER):$(BT_KEY) 
+          $(BT_API)/
+          $(BT_USER)/
+          $(BT_REPO)/
+          $(PROJECT_NAME)/
+          $(VERSION_TAG)/
+          $(PLATFORM)
+          ''' }}
+        displayName: bintray_publish
         condition: succeeded()
 
 # - job: linux_x64
