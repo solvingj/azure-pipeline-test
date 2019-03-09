@@ -25,10 +25,9 @@ jobs:
     steps:
       - script: echo %BUILD_SOURCEBRANCHNAME%
         displayName: echo BUILD_SOURCEBRANCHNAME
-        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
       - script: curl -T $(file) -u$(BT_USER):$(BT_KEY) $(BT_URL)
         displayName: bintray_publish
-        condition: succeeded()
+        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
 
   - job: linux_x64
     variables: 
@@ -38,10 +37,9 @@ jobs:
       steps:
         - script: echo %BUILD_SOURCEBRANCHNAME%
           displayName: echo BUILD_SOURCEBRANCHNAME
-          condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
         - script: curl -T $(file) -u$(BT_USER):$(BT_KEY) $(BT_URL)
           displayName: bintray_publish
-          condition: succeeded()
+          condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
       
   - job: macos_x64
     variables: 
@@ -51,7 +49,6 @@ jobs:
       steps:
         - script: echo %BUILD_SOURCEBRANCHNAME%
           displayName: echo BUILD_SOURCEBRANCHNAME
-          condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
         - script: curl -T $(file) -u$(BT_USER):$(BT_KEY) $(BT_URL)
           displayName: bintray_publish
-          condition: succeeded()
+          condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
