@@ -19,36 +19,36 @@ trigger:
 jobs:
   - job: windows_x64
     variables: 
-      file: $(BIN).exe
+      FILE: $(BIN).exe
     pool:
       vmImage: "vs2017-win2016"
     steps:
-      - script: echo %BUILD_SOURCEBRANCHNAME%
+      - script: echo $(Build.SourceBranchName)
         displayName: echo BUILD_SOURCEBRANCHNAME
-      - script: curl -T $(file) -u$(BT_USER):$(BT_KEY) $(BT_URL)
+      - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
         displayName: bintray_publish
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
 
   - job: linux_x64
     variables: 
-        file: $(BIN)
+        FILE: $(BIN)
     pool:
       vmImage: "ubuntu-16.04"
       steps:
-        - script: echo %BUILD_SOURCEBRANCHNAME%
+        - script: echo $(Build.SourceBranchName)
           displayName: echo BUILD_SOURCEBRANCHNAME
-        - script: curl -T $(file) -u$(BT_USER):$(BT_KEY) $(BT_URL)
+        - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
           displayName: bintray_publish
           condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
       
   - job: macos_x64
     variables: 
-      file: $(BIN)
+      FILE: $(BIN)
     pool:
       vmImage: "macOS-10.13"
       steps:
-        - script: echo %BUILD_SOURCEBRANCHNAME%
+        - script: echo $(Build.SourceBranchName)
           displayName: echo BUILD_SOURCEBRANCHNAME
-        - script: curl -T $(file) -u$(BT_USER):$(BT_KEY) $(BT_URL)
+        - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
           displayName: bintray_publish
           condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
