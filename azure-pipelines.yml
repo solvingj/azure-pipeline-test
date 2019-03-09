@@ -28,15 +28,16 @@ jobs:
         displayName: echo BUILD_SOURCEBRANCHNAME
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
       - script: "
-          echo 
-          curl -T $(target_file)
-          -u$(BT_USER):$(BT_KEY)
-          $(BT_API)/
-          $(BT_USER)/
-          $(BT_REPO)/
-          $(PROJECT_NAME)/
-          $(VERSION_TAG)/
-          $(PLATFORM)"
+          echo \
+          curl -T $(target_file) \
+          -u$(BT_USER):$(BT_KEY) \
+          $(BT_API)/\
+          $(BT_USER)/\
+          $(BT_REPO)/\
+          $(PROJECT_NAME)/\
+          $(VERSION_TAG)/\
+          $(PLATFORM)
+        "
         displayName: bintray_publish
         condition: succeeded()
 
