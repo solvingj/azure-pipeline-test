@@ -29,17 +29,27 @@ jobs:
         displayName: bintray_publish
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
   - job: macos_x64
+    variables: 
+      FILE: $(BIN).exe
     pool:
       vmImage: "macOS-10.13"
     steps:
       - script: echo $(Build.SourceBranchName)
         displayName: echo BUILD_SOURCEBRANCHNAME2
+      - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
+        displayName: bintray_publish
+        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
   - job: linux_x64
+    variables: 
+      FILE: $(BIN).exe
     pool:
       vmImage: "ubuntu-16.04"
     steps:
       - script: echo $(Build.SourceBranchName)
         displayName: echo BUILD_SOURCEBRANCHNAME2
+      - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
+        displayName: bintray_publish
+        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
 
   # - job: linux_x64
     # variables: 
