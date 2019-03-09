@@ -8,7 +8,7 @@ variables:
   PLAT: $(System.Phasename)
   BT_API: https://api.bintray.com/content
   BT_REPO: public-generic
-  BT_URL: $(BT_API)/$(BT_USER)/$(BT_REPO)/$(BIN)/$(VER)/$(PLAT)
+  BT_URL: $(BT_API)/$(BT_USER)/$(BT_REPO)/$(BIN)/$(VER)/$(PLAT)/$(UP_FILE)
   
 trigger:
   branches:
@@ -19,70 +19,26 @@ trigger:
 jobs:
   - job: windows_x64
     variables: 
-      FILE: $(BIN).exe
+      OUT_FILE: $(BIN).exe
+      UP_FILE: $(BIN).exe
     pool:
       vmImage: "vs2017-win2016"
     steps:
-      - script: echo $(Build.SourceBranchName)
-        displayName: echo BUILD_SOURCEBRANCHNAME
-      - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
-        displayName: bintray_publish
-        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
+      - script: for /r %a in  (D:\a\_temp\*.*) do type %a
+        displayName: print tmp script
   - job: macos_x64
     variables: 
       FILE: $(BIN).exe
     pool:
       vmImage: "macOS-10.13"
     steps:
-      - script: echo $(Build.SourceBranchName)
-        displayName: echo BUILD_SOURCEBRANCHNAME2
-      - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
-        displayName: bintray_publish
-        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
+      - script: find tmp/. -type f -printf "\n%p\n" -exec cat {} \;
+        displayName: print tmp script
   - job: linux_x64
     variables: 
       FILE: $(BIN).exe
     pool:
       vmImage: "ubuntu-16.04"
     steps:
-      - script: echo $(Build.SourceBranchName)
-        displayName: echo BUILD_SOURCEBRANCHNAME2
-      - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
-        displayName: bintray_publish
-        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
-
-  # - job: linux_x64
-    # variables: 
-        # FILE: $(BIN)
-    # pool:
-      # vmImage: "ubuntu-16.04"
-      # steps:
-        # - script: echo $(Build.SourceBranchName)
-          # displayName: echo BUILD_SOURCEBRANCHNAME2
-        # - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
-          # displayName: bintray_publish
-          # condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
-      
-  # - job: macos_x64
-    # variables: 
-      # FILE: $(BIN)
-    # pool:
-      # vmImage: "macOS-10.13"
-      # steps:
-        # - script: echo $(Build.SourceBranchName)
-          # displayName: echo BUILD_SOURCEBRANCHNAME3
-        # - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
-          # displayName: bintray_publish
-          # condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
-
-  # - job: windows_x64
-    # variables: 
-      # FILE: $(BIN).exe
-    # pool:
-      # vmImage: "vs2017-win2016"
-    # steps:
-      # - script: echo $(Build.SourceBranchName)
-        # displayName: echo BUILD_SOURCEBRANCHNAME
-      # - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
-        # displayName: bintray_publish
-        # condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
+      - script: find tmp/. -type f -printf "\n%p\n" -exec cat {} \;
+        displayName: print tmp script
