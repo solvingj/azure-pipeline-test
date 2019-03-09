@@ -12,7 +12,8 @@ trigger:
     include: ['*']
     
 jobs:
-  - job: Windows
+  - job: windows_x64
+    displayName: windows_x64
     variables: 
       target_file: envx.exe
     pool:
@@ -23,8 +24,11 @@ jobs:
       - script: echo %BUILD_SOURCEBRANCHNAME%
         displayName: echo BUILD_SOURCEBRANCHNAME
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
+      - script: curl  %BUILD_SOURCEBRANCHNAME%
+        displayName: echo BUILD_SOURCEBRANCHNAME
+        condition: and(success())
 
-# - job: Linux
+# - job: linux_x64
   # pool:
     # vmImage: "ubuntu-16.04"
   # steps:
@@ -33,7 +37,7 @@ jobs:
     # - script: ./jfrog --version
     
 
-# - job: macOS
+# - job: macos_x64
   # pool:
     # vmImage: "macOS-10.13"
   # steps:
