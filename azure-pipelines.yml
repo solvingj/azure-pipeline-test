@@ -27,7 +27,7 @@ jobs:
       - script: echo %BUILD_SOURCEBRANCHNAME%
         displayName: echo BUILD_SOURCEBRANCHNAME
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
-      - script: |
+      - script: >-
           echo "
           curl -T $(target_file) 
           -u$(BT_USER):$(BT_KEY) 
