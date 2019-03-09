@@ -5,10 +5,9 @@ variables:
   MODULEPATH: "$(GOPATH)/src/github.com/$(build.repository.name)"
   BT_API: https://api.bintray.com/content
   BT_REPO: public-generic
-  PROJECT_NAME: $(BUILD_DEFINITIONNAME)
-  VERSION_TAG: $(BUILD_SOURCEBRANCHNAME)
-  PLATFORM: $(SYSTEM_PHASENAME)
-  PUBLISH_CMD: curl -T $(VERSION_TAG) 
+  PROJECT_NAME: $(Build.SourceBranch)
+  VERSION_TAG: $(Build.SourceBranchName)
+  PLATFORM: $(System.Phasename)
   
 trigger:
   branches:
@@ -29,7 +28,7 @@ jobs:
         displayName: echo BUILD_SOURCEBRANCHNAME
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
       - script: |
-          ${{ '''echo "
+          ${{ '''echo " 
           curl -T $(target_file)
           -u$(BT_USER):$(BT_KEY) 
           $(BT_API)/
