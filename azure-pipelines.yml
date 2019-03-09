@@ -3,7 +3,7 @@ variables:
   GOPATH: "$(system.defaultWorkingDirectory)/gopath"
   GO111MODULE: "on"
   MODULEPATH: "$(GOPATH)/src/github.com/$(build.repository.name)"
-  BIN: $(Build.SourceBranch)
+  BIN: $(Build.DefinitionName)
   VER: $(Build.SourceBranchName)
   PLAT: $(System.Phasename)
   BT_API: https://api.bintray.com/content
@@ -43,7 +43,6 @@ jobs:
           displayName: bintray_publish
           condition: succeeded()
       
-
   - job: macos_x64
     variables: 
       file: $(BIN)
