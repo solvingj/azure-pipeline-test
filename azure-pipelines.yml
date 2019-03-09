@@ -17,17 +17,6 @@ trigger:
     include: ['*']
     
 jobs:
-  - job: windows_x64
-    variables: 
-      FILE: $(BIN).exe
-    pool:
-      vmImage: "vs2017-win2016"
-    steps:
-      - script: echo $(Build.SourceBranchName)
-        displayName: echo BUILD_SOURCEBRANCHNAME
-      - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
-        displayName: bintray_publish
-        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
 
   - job: linux_x64
     variables: 
@@ -52,3 +41,15 @@ jobs:
         - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
           displayName: bintray_publish
           condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
+
+  - job: windows_x64
+    variables: 
+      FILE: $(BIN).exe
+    pool:
+      vmImage: "vs2017-win2016"
+    steps:
+      - script: echo $(Build.SourceBranchName)
+        displayName: echo BUILD_SOURCEBRANCHNAME
+      - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) $(BT_URL)
+        displayName: bintray_publish
+        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
