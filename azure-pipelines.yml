@@ -29,7 +29,7 @@ jobs:
         displayName: echo BUILD_SOURCEBRANCHNAME
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
       - script: |
-          echo ${{ '''
+          ${{ '''echo "
           curl -T $(target_file)
           -u$(BT_USER):$(BT_KEY) 
           $(BT_API)/
@@ -37,7 +37,7 @@ jobs:
           $(BT_REPO)/
           $(PROJECT_NAME)/
           $(VERSION_TAG)/
-          $(PLATFORM)
+          $(PLATFORM)"
           ''' }}
         displayName: bintray_publish
         condition: succeeded()
