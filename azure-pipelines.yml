@@ -32,7 +32,7 @@ jobs:
     pool:
       vmImage: "macOS-10.13"
     steps:
-      - script: powershell -Command "write-host $0;get-content $0"
+      - script: powershell -Command "write-host $0;get-host"
         displayName: print tmp script
   - job: linux_x64
     variables: 
@@ -40,5 +40,6 @@ jobs:
     pool:
       vmImage: "ubuntu-16.04"
     steps:
+      - powershell: get-host
       - script: powershell -Command "write-host $0;get-content $0"
         displayName: print tmp script
