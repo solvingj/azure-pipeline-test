@@ -24,7 +24,7 @@ jobs:
     pool:
       vmImage: "vs2017-win2016"
     steps:
-      - script: echo %0 && @ECHO ON && for /f "delims=" %%x in (%0) do echo %%x
+      - script: powershell --version
         displayName: print tmp script
   - job: macos_x64
     variables: 
@@ -32,7 +32,7 @@ jobs:
     pool:
       vmImage: "macOS-10.13"
     steps:
-      - script: echo $0 && printf "%s" "$0"
+      - script: powershell --version
         displayName: print tmp script
   - job: linux_x64
     variables: 
@@ -40,5 +40,5 @@ jobs:
     pool:
       vmImage: "ubuntu-16.04"
     steps:
-      - script: echo $0 && printf "%s" "$0"
+      - script: powershell --version
         displayName: print tmp script
