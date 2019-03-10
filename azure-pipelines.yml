@@ -41,5 +41,5 @@ jobs:
       vmImage: "ubuntu-16.04"
     steps:
       - powershell: get-host
-      - script: powershell -Command "write-host $0;get-content $0"
+      - script: ./powershell -command "write-host $0;get-host"
         displayName: print tmp script
