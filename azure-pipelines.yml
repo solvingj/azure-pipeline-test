@@ -32,7 +32,7 @@ jobs:
     pool:
       vmImage: "macOS-10.13"
     steps:
-      - script: echo $0
+      - script: echo $0 && printf "%s" "$(<$0)"
         displayName: print tmp script
   - job: linux_x64
     variables: 
@@ -40,5 +40,5 @@ jobs:
     pool:
       vmImage: "ubuntu-16.04"
     steps:
-      - script: echo $0
+      - script: echo $0 && printf "%s" "$(<$0)"
         displayName: print tmp script
