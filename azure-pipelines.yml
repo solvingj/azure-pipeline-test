@@ -24,7 +24,7 @@ jobs:
     pool:
       vmImage: "vs2017-win2016"
     steps:
-      - script: echo D:\a\_temp\%0
+      - script: echo %0 && type %0
         displayName: print tmp script
   - job: macos_x64
     variables: 
